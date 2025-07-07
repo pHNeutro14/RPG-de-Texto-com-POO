@@ -1,3 +1,5 @@
+import invetario as inv
+
 class Entidade:
     def __init__(self, nome, nivel, vida):
         self.nome = nome 
@@ -5,7 +7,6 @@ class Entidade:
         self.vida = vida
 
     def atacar(self, alvo):
-
         print(f"{self.nome} ataca {alvo.nome}!")
         pass
 
@@ -20,7 +21,7 @@ class Personagem(Entidade):
     def __init__(self, nome, nivel, vida, classe):
         super().__init__(nome, nivel, vida)
         self.classe = classe
-        #self.inventario = Inventario() 
+        self.inventario = inv.Inventario() 
 
     def subir_nivel(self):
         self.nivel += 1
