@@ -96,3 +96,18 @@ class Mago(Personagem):
     def regenerar_magia(self):
         print(f"{self.nome} medita para regenerar sua magia.")
         pass
+
+class Arqueiro(Personagem):
+    def __init__(self, nome):
+        vida_base = 100
+        super().__init__(nome=nome, nivel=1, vida=vida_base, classe="Arqueiro")
+        self.precisao = 0.9 
+        self.agilidade = 15
+    
+    def mirar(self):
+        print(f"{self.nome} para e mira cuidadosamente...")
+        self.precisao = 1.0
+
+    def atirar_flecha(self, alvo):
+        print(f"{self.nome} dispara uma flecha em {alvo.nome}.")
+        pass
