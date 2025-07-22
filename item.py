@@ -2,56 +2,54 @@ class Item:
     def __init__(self, nome, descricao):
         self.nome = nome
         self.descricao = descricao
-        print(f"Item criado: {self.nome}")
 
-    def usar(self, alvo):
-        print(f"{alvo.nome} usa o item {self.nome}.")
-        pass
-
-    def descartar(self):
-        print(f"Item {self.nome} descartado.")
-        pass
+    def usar(self, personagem):
+        print(f"{personagem.nome} tenta usar {self.nome}, mas nada acontece.")
 
 class Arma(Item):
-    def __init__(self, nome, descricao, dano, alcance): 
+    def __init__(self, nome, descricao, dano): 
         super().__init__(nome, descricao)
         self.dano = dano
-        self.alcance = alcance
-
-    def equipar(self, personagem):
-        print(f"{personagem.nome} equipa {self.nome}.")
-        pass
-
-    def melhorar(self):
-        self.dano += 5
-        print(f"{self.nome} foi melhorada! Dano agora: {self.dano}.")
-        pass
 
 class Pocao(Item):
-    def __init__(self, nome, descricao, efeito, quantidade):
+    def __init__(self, nome, descricao, efeito, quantidade, valor_cura=0):
         super().__init__(nome, descricao)
         self.efeito = efeito
         self.quantidade = quantidade
+        self.valor_cura = valor_cura
 
-    def beber(self, personagem):
-        print(f"{personagem.nome} bebe {self.nome} e recebe o efeito: {self.efeito}.")
-        self.quantidade -= 1
-        pass
-
-    def misturar(self):
-        pass
+    def usar(self, personagem):
+        if self.efeito == "cura" and self.quantidade > 0:
+            personagem.vida += self.valor_cura
+            if personagem.vida > personagem.vida_maxima:
+                personagem.vida = personagem.vida_maxima
+            self.quantidade -= 1
+            print(f"{personagem.nome} usa {self.nome}, recuperando {self.valor_cura} de vida! Restam {self.quantidade}.")
+        else:
+            print(f"Não foi possível usar {self.nome}.")
 
 class Armadura(Item):
-    def __init__(self, nome, descricao, defesa, durabilidade): 
+    def __init__(self, nome, descricao, defesa):
         super().__init__(nome, descricao)
         self.defesa = defesa
-        self.durabilidade = durabilidade
 
-    def vestir(self, personagem):
-        print(f"{personagem.nome} veste {self.nome}.")
-        pass
-    
-    def consertar(self):
-        self.durabilidade = 100
-        print(f"{self.nome} foi consertada.")
-        pass
+class Inventario:
+    def __init__(self, capacidade=50):
+        self.itens = []
+        self.capacidade = capacidade
+
+    def adicionar_item(self, item):
+        if len(self.itens) < self.capacidade:
+            self.itens.append(item)
+            print(f"'{item.nome}' foi adicionado ao inventário.")
+        else:
+            print("Inventário cheio!")
+            
+    def mostrar(self):
+        print("\n--- Inventário ---")
+        if not self.itens:
+            print("Vazio")
+        else:
+            for i, item in enumerate(self.itens):
+                print(f"{i+1}. {item.nome} ({item.descricao})")
+        print("------------------")
