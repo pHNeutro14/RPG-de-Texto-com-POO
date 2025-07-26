@@ -19,6 +19,7 @@ class Pontuacao:
             return False
 
 class Entidade:
+    """Classe base para todos os seres vivos do jogo (personagens, inimigos, etc.)."""
     def __init__(self, nome, nivel, vida):
         self.nome = nome 
         self.nivel = nivel 
@@ -39,6 +40,7 @@ class Entidade:
             print(f"{self.nome} foi derrotado.")
 
 class Personagem(Entidade):
+    """Classe base para todos os personagens jogáveis, herdando de Entidade."""
     def __init__(self, nome, nivel, vida, classe):
         super().__init__(nome, nivel, vida)
         self.classe = classe
@@ -69,6 +71,7 @@ class Personagem(Entidade):
             print(f"Não é possível equipar {item.nome}.")
 
 class NPC(Personagem):
+    """Representa um Personagem Não-Jogável (NPC) com quem o jogador pode interagir."""
     def __init__(self, nome, nivel, vida, fala, missao_oferecida=None):
         super().__init__(nome, nivel, vida, classe="NPC")
         self.fala = fala
@@ -100,8 +103,9 @@ class NPC(Personagem):
                 print(f"[{self.nome}]: Você já está ocupado com a missão '{personagem.missao_ativa.titulo}'.")
         else:
             print(f"[{self.nome}]: Não tenho nenhuma missão para você agora.")
-
+            
 class Inimigo(Entidade):
+    """Classe base para todos os inimigos que o jogador pode enfrentar."""
     def __init__(self, nome, nivel, vida, tipo, loot_xp, dano_base):
         super().__init__(nome, nivel, vida)
         self.tipo = tipo
@@ -113,6 +117,7 @@ class Inimigo(Entidade):
         alvo.receber_dano(self.dano_base)
 
 class Chefe(Inimigo):
+    """Representa um Inimigo mais forte e único, com habilidades especiais."""
     def __init__(self, nome, nivel, vida, tipo, loot_xp, dano_base, habilidade_especial, dano_em_area):
         super().__init__(nome, nivel, vida, tipo, loot_xp, dano_base)
         self.habilidade_especial = habilidade_especial
@@ -133,6 +138,7 @@ class Chefe(Inimigo):
         alvo.receber_dano(dano_chefe)
 
 class Guerreiro(Personagem):
+    """Classe especializada para o personagem do tipo Guerreiro."""
     def __init__(self, nome):
         super().__init__(nome=nome, nivel=1, vida=150, classe="Guerreiro")
         self.forca_extra = 10
@@ -148,6 +154,7 @@ class Guerreiro(Personagem):
         print(f"{self.nome} se defende com o escudo!")
 
 class Mago(Personagem):
+    """Classe especializada para o personagem do tipo Mago."""
     def __init__(self, nome):
         super().__init__(nome=nome, nivel=1, vida=80, classe="Mago")
         self.grimorio = ["Míssil Arcano", "Raio de Gelo"]
@@ -176,6 +183,7 @@ class Mago(Personagem):
             super().atacar(alvo) 
 
 class Arqueiro(Personagem):
+    """Classe especializada para o personagem do tipo Arqueiro."""
     def __init__(self, nome):
         super().__init__(nome=nome, nivel=1, vida=100, classe="Arqueiro")
         self.agilidade = 15
@@ -187,11 +195,9 @@ class Arqueiro(Personagem):
 
     def atacar(self, alvo):
         dano = self.agilidade
-
         if self.esta_mirando:
             print("O tiro mirado é certeiro!")
             dano = int(dano * 1.5)
             self.esta_mirando = False
-
         if self.arma_equipada: dano += self.arma_equipada.dano
         alvo.receber_dano(dano)

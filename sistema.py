@@ -3,6 +3,7 @@ from entidade import Inimigo, Chefe, Personagem, Guerreiro, Mago, Arqueiro
 from item import Pocao
 
 class Missao:
+    """Representa uma missão ou tarefa que o jogador pode aceitar e completar."""
     def __init__(self, titulo, descricao, tipo_objetivo, alvo_objetivo, recompensa_xp):
         self.titulo = titulo
         self.descricao = descricao
@@ -12,6 +13,7 @@ class Missao:
         self.concluida = False
 
 class Combate:
+    """Gerencia uma instância de combate, controlando os turnos e as condições de vitória."""
     def __init__(self, personagem, inimigo):
         self.personagem = personagem
         self.inimigo = inimigo
@@ -75,6 +77,7 @@ class Combate:
         print(f"** Nova Missão: {self.missao_oferecida.titulo} **")
 
 class NPC(Personagem):
+    """Representa um Personagem Não-Jogável (NPC) que pode interagir e oferecer missões."""
     def __init__(self, nome, nivel, vida, fala, missao_oferecida=None):
         super().__init__(nome, nivel, vida, classe="NPC")
         self.fala = fala
@@ -92,6 +95,7 @@ class NPC(Personagem):
         print(f"** Nova Missão: {self.missao_oferecida.titulo} **")
 
 class Evento: 
+    """Define um evento que pode ocorrer durante a exploração, como um combate ou tesouro."""
     def __init__(self, descricao, tipo, personagem, regiao):
         self.descricao = descricao 
         self.tipo = tipo
@@ -111,6 +115,7 @@ class Evento:
             self.personagem.inventario.adicionar_item(item)
 
 class Regiao: 
+    """Representa uma área específica do mapa, com seus próprios inimigos e dificuldade."""
     def __init__(self, nome, dificuldade, tipos_de_inimigos, is_chefe=False):
         self.nome = nome
         self.dificuldade = dificuldade
@@ -147,6 +152,7 @@ class Regiao:
         combate.iniciar_combate()
 
 class Mapa:
+    """Gerencia o mapa do mundo, as regiões e a posição atual do jogador."""
     def __init__(self):
         self.regioes = [
             Regiao("Floresta dos Sussurros", 1, ["Lobo", "Goblin Batedor"]),

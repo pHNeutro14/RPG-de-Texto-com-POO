@@ -1,4 +1,5 @@
 class Item:
+    """Classe base para todos os itens que podem ser encontrados no jogo."""
     def __init__(self, nome, descricao):
         self.nome = nome
         self.descricao = descricao
@@ -7,11 +8,13 @@ class Item:
         print(f"{personagem.nome} tenta usar {self.nome}, mas nada acontece.")
 
 class Arma(Item):
+    """Representa um item do tipo Arma, que possui um valor de dano."""
     def __init__(self, nome, descricao, dano): 
         super().__init__(nome, descricao)
         self.dano = dano
 
 class Pocao(Item):
+    """Representa um item consumível, como poções de cura ou outros efeitos."""
     def __init__(self, nome, descricao, efeito, quantidade, valor_cura=0):
         super().__init__(nome, descricao)
         self.efeito = efeito
@@ -29,11 +32,13 @@ class Pocao(Item):
             print(f"Não foi possível usar {self.nome}.")
 
 class Armadura(Item):
+    """Representa um item de defesa, que possui um valor de defesa."""
     def __init__(self, nome, descricao, defesa):
         super().__init__(nome, descricao)
         self.defesa = defesa
 
 class Inventario:
+    """Gerencia a coleção de itens de um personagem, controlando a capacidade."""
     def __init__(self, capacidade=50):
         self.itens = []
         self.capacidade = capacidade
