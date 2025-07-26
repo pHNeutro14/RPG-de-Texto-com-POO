@@ -5,9 +5,9 @@ from item import Arma, Pocao
 if __name__ == "__main__":
     
 
-    print("="*30)
-    print(" BEM-VINDO AO MEU RPG EM PYTHON ")
-    print("="*30)
+    print("="*26)
+    print(" BEM-VINDO AO RPG DE TEXTO ")
+    print("="*26)
     nome_do_heroi = input("Digite o nome do seu herói: ")
     heroi = None
     while heroi is None:
@@ -43,7 +43,7 @@ if __name__ == "__main__":
             mapa_do_mundo.get_regiao_atual().explorar(heroi)
         
         elif acao == '2':
-            direcao = input("Para onde? (avancar / voltar)\n> ")
+            direcao = input("Para onde? (avançar / voltar)\n> ")
             mapa_do_mundo.mover(direcao)
             
         elif acao == '3':
